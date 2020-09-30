@@ -6,7 +6,7 @@ from models.user import UserModel
 class UserRegister(Resource):
     #get user-data from body
     parser = reqparse.RequestParser() 
-
+    #add arguments to aprser
     parser.add_argument('username', type = str, required = True, help = "Please, choose a username!") 
     parser.add_argument('password', type = str, required = True, help = "Please, coose a password!") 
 

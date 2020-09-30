@@ -1,8 +1,7 @@
 #use SQLAlchemy instead of sqlite3 to interact with database
 from db import db
 
-#let ItemModel inherit from db.Model (a SQLAlchemy model) --> to create mapping between class-objects and database
-#SQLAlchemy takes care of all conenction-stuff (connecting, commiting etc) and facilitates things as filtering from table
+#let ItemModel inherit from db.Model 
 class ItemModel(db.Model): 
     __tablename__ = "items"
 
@@ -10,7 +9,7 @@ class ItemModel(db.Model):
     name = db.Column(db.String(10))
     price = db.Column(db.Float(precision = 2))
 
-    store_id = db.Column(db.Integer, db.ForeignKey('stores.id')) #"link" to stores-table --> foreign key is the id-column in stores-table
+    store_id = db.Column(db.Integer, db.ForeignKey('stores.id'))
     store = db.relationship('StoreModel')
 
     def __init__(self, name, price, store_id):
@@ -23,8 +22,6 @@ class ItemModel(db.Model):
 
     @classmethod
     def find_by_name(cls, name):
-        #use SQLAlchemy to filter: the below line does same as: "SELECT * FROM __tablename__ WHERE name=name LIMIT 1" --> without explicitly having to connect, iterate etc.
-        #the below code returns an ItemModel object automatically
         return ItemModel.query.filter_by(name=name).first() #NOTE: multiple filter_by() can be applied back-to-back
 
 
@@ -34,6 +31,6 @@ class ItemModel(db.Model):
         db.session.commit() #commit changes
 
     def delete_from_db(self):
-        #delete object (=automatically translated to row) from database
+        #delete object from database
         db.session.delete(self)
         db.session.commit()
