@@ -1,0 +1,4 @@
+__pycache__/
+Flask-JWT+Configuration+Tutorial.pdf
+*.pyc
+*.py[cod]
