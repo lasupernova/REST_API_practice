@@ -1,7 +1,6 @@
 from flask import Flask
 from flask_restful import Api
 from flask_jwt import JWT
-from db import db
 
 #import custom classes and methods from security.py, user.py and item.py
 from security import authenticate, identity
@@ -22,11 +21,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'holajose' #needs to be  SECRET --> shoul not show in public code
 api = Api(app) #allows to easily add ressources to app
 
-#create tables using SQLAlchemy
-@app.before_first_request 
-def create_tables():
-    db.create_all() 
-
 #create JWT-object for authentication
 jwt = JWT(app, authenticate, identity) 
 
@@ -40,6 +34,5 @@ api.add_resource(UserRegister, '/register')
 
 #only run this if file is run, NOT if importing from this file
 if __name__ == '__main__':
-    db.init_app(app)
     #run app, NOTE: default port is already 5000, putting it in only for clarity
     app.run(port=5000, debug=True)
