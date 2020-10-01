@@ -13,7 +13,7 @@ from resources.store import Store, StoreList
 app = Flask(__name__)
 
 #tell SQLAlchemy where to find the database
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL','sqlite:///data.db')
 
 #turn off Flask-SQLAlchemy modification tracker
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
