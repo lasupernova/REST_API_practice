@@ -81,4 +81,4 @@ class Item(Resource): #note: __init__ not mandatory as it is inheriting from Red
 #create class for items endpoint
 class ItemList(Resource):
     def get(self):
-        return {'items': [item.json() for item in ItemModel.query.all()]}
+        return {'items': [item.json() for item in ItemModel.find_all()]}

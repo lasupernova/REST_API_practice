@@ -18,8 +18,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL','sqlite://
 #turn off Flask-SQLAlchemy modification tracker
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+# allow Flask-extensions (like Flask-JWT) return their own custom errors (instead of returning generic 500-errors)
+app.config['PROPAGATE_TRACK_MODIFICATIONS'] = True
 
-app.secret_key = 'holajose' #needs to be  SECRET --> shoul not show in public code
+app.secret_key = 'holajose' #needs to be  SECRET --> should not show in public code
 api = Api(app) #allows to easily add ressources to app
 
 #create JWT-object for authentication

@@ -18,12 +18,20 @@ class ItemModel(db.Model):
         self.store_id = store_id
 
     def json(self):
-        return {'name': self.name, 'price' : self.price}
+        return {
+            'id' : self.id ,
+            'name': self.name, 
+            'price' : self.price, 
+            'store_id' : self.store_id
+            }
 
     @classmethod
     def find_by_name(cls, name):
         return ItemModel.query.filter_by(name=name).first() #NOTE: multiple filter_by() can be applied back-to-back
 
+    @classmethod
+    def find_all(cls):
+        return cls.query.all()
 
     def save_to_db(self): 
         #SQLAlchemy automatically trasnlates from object to row in database
