@@ -5,9 +5,10 @@ from flask_jwt import JWT
 
 #import custom classes and methods from security.py, user.py and item.py
 from security import authenticate, identity
-from resources.user import UserRegister 
+from resources.user import UserRegister, User
 from resources.item import Item, ItemList
 from resources.store import Store, StoreList
+# from db import db #only uncomment in localhost
 
 #initiate app
 app = Flask(__name__)
@@ -32,10 +33,12 @@ api.add_resource(Item, '/item/<string:name>')
 api.add_resource(ItemList, '/items')
 api.add_resource(Store, '/store/<string:name>')
 api.add_resource(StoreList, '/stores')
+api.add_resource(User, '/user/<int:user_id>')
 
 api.add_resource(UserRegister, '/register') 
 
 #only run this if file is run, NOT if importing from this file
 if __name__ == '__main__':
+    # db.init_app(app) #only uncomment in localhost
     #run app, NOTE: default port is already 5000, putting it in only for clarity
     app.run(port=5000, debug=True)
